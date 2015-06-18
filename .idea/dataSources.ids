@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - fietsacademy@localhost" uuid="40c6b756-589d-4683-9bdc-9d1a0e0564ab">
+    <database-info product="MySQL" version="5.0.83-community-nt" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="fietsacademy"/>
+    <table name="campussen" schema="" catalog="fietsacademy" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="naam" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="straat" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="huisNr" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="postCode" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="gemeente" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_campussentelefoonnrs_campussen" table="campussentelefoonnrs" schema="" catalog="fietsacademy" columns="campusId"/>
+    </table>
+    <table name="campussentelefoonnrs" schema="" catalog="fietsacademy" type="TABLE">
+      <column name="nummer" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="opmerking" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="campusId" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fax" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <foreign-key name="fk_campussentelefoonnrs_campussen" columns="campusId" ref-table="campussen" ref-schema="" ref-catalog="fietsacademy" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_campussentelefoonnrs_campussen" unique="false" columns="campusId"/>
+    </table>
+    <table name="docenten" schema="" catalog="fietsacademy" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="voornaam" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="familienaam" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="wedde" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3"/>
+      <column name="rijksRegisterNr" sqlType="BIGINT UNSIGNED" precision="20" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_docentenbijnamen_docenten" table="docentenbijnamen" schema="" catalog="fietsacademy" columns="docentid"/>
+      <exported-key name="fk_docenten_veran" table="docentenverantwoordelijkheden" schema="" catalog="fietsacademy" columns="docentId"/>
+      <index name="rijksRegisterNr" unique="true" columns="rijksRegisterNr"/>
+    </table>
+    <table name="docentenbijnamen" schema="" catalog="fietsacademy" type="TABLE">
+      <column name="docentid" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="bijnaam" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <foreign-key name="fk_docentenbijnamen_docenten" columns="docentid" ref-table="docenten" ref-schema="" ref-catalog="fietsacademy" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="docentenbijnamenDocentNrBijnaam" unique="true" columns="docentid,bijnaam"/>
+    </table>
+    <table name="docentenverantwoordelijkheden" schema="" catalog="fietsacademy" type="TABLE">
+      <column name="docentId" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="verantwoordelijkheidId" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="docentId,verantwoordelijkheidId"/>
+      <foreign-key name="fk_docenten_veran" columns="docentId" ref-table="docenten" ref-schema="" ref-catalog="fietsacademy" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="fk_verant_docenten" columns="verantwoordelijkheidId" ref-table="verantwoordelijkheden" ref-schema="" ref-catalog="fietsacademy" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_verant_docenten" unique="false" columns="verantwoordelijkheidId"/>
+    </table>
+    <table name="managers" schema="" catalog="fietsacademy" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="voornaam" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="familienaam" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="verantwoordelijkheden" schema="" catalog="fietsacademy" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="naam" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_verant_docenten" table="docentenverantwoordelijkheden" schema="" catalog="fietsacademy" columns="verantwoordelijkheidId"/>
+      <index name="naam" unique="true" columns="naam"/>
+    </table>
+  </data-source>
+</component>
