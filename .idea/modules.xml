@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/Dropbox/IdeaProjects/VDAB/fietsacademy/fietsacademy.iml" filepath="$USER_HOME$/Dropbox/IdeaProjects/VDAB/fietsacademy/fietsacademy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../EclipseProjects/fietsacademy/fietsacademy.iml" filepath="$PROJECT_DIR$/../../../EclipseProjects/fietsacademy/fietsacademy.iml" />
     </modules>
   </component>
 </project>

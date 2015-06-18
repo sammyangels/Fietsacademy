@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="fietsacademy:war exploded">
-    <output-path>$USER_HOME$/Dropbox/EclipseProjects/fietsacademy/target/fietsacademy-0.0.1-SNAPSHOT</output-path>
+    <output-path>$PROJECT_DIR$/../../../EclipseProjects/fietsacademy/target/fietsacademy-0.0.1-SNAPSHOT</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -23,7 +23,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$USER_HOME$/Dropbox/IdeaProjects/VDAB/fietsacademy/target/fietsacademy-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/../../../EclipseProjects/fietsacademy/target/fietsacademy-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="fietsacademy/web/Web" />
     </root>
