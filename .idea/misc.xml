@@ -4,13 +4,13 @@
     <entry_points version="2.0" />
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$/../../../EclipseProjects/fietsacademy" />
     <file type="web" url="file://$PROJECT_DIR$" />
+    <file type="web" url="file://$USER_HOME$/EclipseProjects/fietsacademy" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/../../../EclipseProjects/fietsacademy/pom.xml" />
+        <option value="$USER_HOME$/EclipseProjects/fietsacademy/pom.xml" />
       </list>
     </option>
   </component>
@@ -56,6 +56,6 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/../../../EclipseProjects/fietsacademy/classes" />
+    <output url="file://$USER_HOME$/EclipseProjects/fietsacademy/classes" />
   </component>
 </project>
