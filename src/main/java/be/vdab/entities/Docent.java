@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+
 @Entity
 @Table(name = "docenten")
 public class Docent implements Serializable {
@@ -19,7 +20,7 @@ public class Docent implements Serializable {
     private BigDecimal wedde;
     private long rijksRegisterNr;
 
-    protected Docent(){}
+    protected Docent() {}
 
     public Docent(String voornaam, String familienaam, BigDecimal wedde, long rijksRegisterNr, Geslacht geslacht) {
         setVoornaam(voornaam);
@@ -34,7 +35,7 @@ public class Docent implements Serializable {
     }
 
     public static boolean isFamilienaamValid(String familienaam) {
-        return familienaam != null && ! familienaam.isEmpty();
+        return familienaam != null && !familienaam.isEmpty();
     }
 
     public static boolean isWeddeValid(BigDecimal wedde) {
