@@ -52,4 +52,8 @@ public class DocentDAO extends AbstractDAO {
                         " from Docent d group by d.wedde",
                 AantalDocentenPerWedde.class).getResultList();
     }
+
+    public void algemeneOpslag(BigDecimal factor) {
+        getEntityManager().createNamedQuery("Docent.algemeneOpslag").setParameter("factor", factor).executeUpdate();
+    }
 }
