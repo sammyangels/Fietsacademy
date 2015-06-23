@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -20,6 +23,11 @@ public class Docent implements Serializable {
     private BigDecimal wedde;
     private long rijksRegisterNr;
 
+    @ElementCollection
+    @CollectionTable(name = "docentenbijnamen", joinColumns = @JoinColumn(name = "docentid"))
+    @Column(name = "Bijnaam")
+    private Set<String> bijnamen;
+
     protected Docent() {}
 
     public Docent(String voornaam, String familienaam, BigDecimal wedde, long rijksRegisterNr, Geslacht geslacht) {
@@ -28,6 +36,11 @@ public class Docent implements Serializable {
         setWedde(wedde);
         setRijksRegisterNr(rijksRegisterNr);
         setGeslacht(geslacht);
+        bijnamen = new HashSet<>();
+    }
+
+    public Set<String> getBijnamen() {
+        return Collections.unmodifiableSet(bijnamen);
     }
 
     public static boolean isVoornaamValid(String voornaam) {
