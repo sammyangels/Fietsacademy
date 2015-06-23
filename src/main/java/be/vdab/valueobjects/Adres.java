@@ -1,6 +1,5 @@
 package be.vdab.valueobjects;
 
-import javax.persistence.Basic;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
