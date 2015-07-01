@@ -27,9 +27,13 @@
         ${docent.naam}, wedde: &euro; <fmt:formatNumber value="${docent.wedde}"/>
         <c:if test="${not empty docent.bijnamen}">
             <h2>Bijnamen</h2>
+            <form method="post">
             <ul><c:forEach items="${docent.bijnamen}" var="bijnaam">
-                <li>${bijnaam}</li>
+                <li><label>${bijnaam}
+                <input type="checkbox" name="bijnaam" value="${bijnaam}"></label></li>
             </c:forEach> </ul>
+                <input type="submit" value="Bijnamen verwijderen" name="verwijderen">
+                </form>
         </c:if>
         <form method="post" id="toevoegform">
             <label>Bijnaam: <span>${fouten.bijnaam}</span>

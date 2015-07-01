@@ -43,6 +43,10 @@ public class Docent implements Serializable {
         bijnamen.add(bijnaam);
     }
 
+    public void removeBijnaam(String bijnaam) {
+        bijnamen.remove(bijnaam);
+    }
+
     public Set<String> getBijnamen() {
         return Collections.unmodifiableSet(bijnamen);
     }

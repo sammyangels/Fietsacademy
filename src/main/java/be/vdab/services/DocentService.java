@@ -61,4 +61,13 @@ public class DocentService {
         docentDAO.read(id).addBijnaam(bijnaam);
         docentDAO.commit();
     }
+
+    public void bijnamenVerwijderen(long id, String[] bijnamen) {
+        docentDAO.beginTransaction();
+        Docent docent = docentDAO.read(id);
+        for (String bijnaam : bijnamen) {
+            docent.removeBijnaam(bijnaam);
+        }
+        docentDAO.commit();
+    }
 }

@@ -1,6 +1,5 @@
 package be.vdab.servlets.docenten;
 
-import be.vdab.dao.DocentDAO;
 import be.vdab.services.DocentService;
 
 import javax.servlet.ServletException;
@@ -20,14 +19,10 @@ public class ZoekenServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long id = Long.parseLong(request.getParameter("id"));
-        String bijnaam = request.getParameter("bijnaam");
-        if (bijnaam == null || bijnaam.isEmpty()) {
-            request.setAttribute("fouten", Collections.singletonMap("bijnaam", "verplicht"));
-            request.setAttribute("docent", docentService.read(id));
-            request.getRequestDispatcher(VIEW).forward(request, response);
+        if (request.getParameter("verwijderen") == null) {
+            bijnamenToevoegen(request, response, id);
         } else {
-            docentService.bijnaamToevoegen(id, bijnaam);
-            response.sendRedirect(response.encodeRedirectURL(String.format(REDIRECT_URL, request.getContextPath(), id)));
+            bijnamenVerwijderen(request, response, id);
         }
     }
 
@@ -42,5 +37,25 @@ public class ZoekenServlet extends HttpServlet {
             }
         }
         request.getRequestDispatcher(VIEW).forward(request, response);
+    }
+
+    private void bijnamenToevoegen(HttpServletRequest request, HttpServletResponse response, long id) throws IOException, ServletException {
+        String bijnaam = request.getParameter("bijnaam");
+        if (bijnaam == null || bijnaam.isEmpty()) {
+            request.setAttribute("fouten", Collections.singletonMap("bijnaam", "verplicht"));
+            request.setAttribute("docent", docentService.read(id));
+            request.getRequestDispatcher(VIEW).forward(request, response);
+        } else {
+            docentService.bijnaamToevoegen(id, bijnaam);
+            response.sendRedirect(response.encodeRedirectURL(String.format(REDIRECT_URL, request.getContextPath(), id)));
+        }
+    }
+
+    private void bijnamenVerwijderen(HttpServletRequest request, HttpServletResponse response, long id) throws IOException {
+        String[] bijnamen = request.getParameterValues("bijnaam");
+        if (bijnamen != null) {
+            docentService.bijnamenVerwijderen(id, bijnamen);
+        }
+        response.sendRedirect(response.encodeRedirectURL(String.format(REDIRECT_URL, request.getContextPath(), id)));
     }
 }
