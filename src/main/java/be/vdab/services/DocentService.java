@@ -55,4 +55,10 @@ public class DocentService {
         docentDAO.algemeneOpslag(factor);
         docentDAO.commit();
     }
+
+    public void bijnaamToevoegen(long id, String bijnaam) {
+        docentDAO.beginTransaction();
+        docentDAO.read(id).addBijnaam(bijnaam);
+        docentDAO.commit();
+    }
 }

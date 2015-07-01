@@ -39,6 +39,10 @@ public class Docent implements Serializable {
         bijnamen = new HashSet<>();
     }
 
+    public void addBijnaam(String bijnaam) {
+        bijnamen.add(bijnaam);
+    }
+
     public Set<String> getBijnamen() {
         return Collections.unmodifiableSet(bijnamen);
     }
