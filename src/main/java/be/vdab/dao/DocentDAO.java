@@ -1,12 +1,9 @@
 package be.vdab.dao;
 
 import be.vdab.entities.Docent;
-import be.vdab.filters.JPAFilter;
 import be.vdab.valueobjects.AantalDocentenPerWedde;
 import be.vdab.valueobjects.VoornaamEnId;
 
-import javax.persistence.EntityManager;
-import javax.print.Doc;
 import java.math.BigDecimal;
 import java.util.List;
 
