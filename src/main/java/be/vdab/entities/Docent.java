@@ -28,6 +28,18 @@ public class Docent implements Serializable {
     @Column(name = "Bijnaam")
     private Set<String> bijnamen;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "campusid")
+    private Campus campus;
+
+    public Campus getCampus() {
+        return campus;
+    }
+
+    public void setCampus(Campus campus) {
+        this.campus = campus;
+    }
+
     protected Docent() {}
 
     public Docent(String voornaam, String familienaam, BigDecimal wedde, long rijksRegisterNr, Geslacht geslacht) {

@@ -1,5 +1,6 @@
 <%--@elvariable id="fouten" type="be.vdab.entities.Docent"--%>
 <%--@elvariable id="fouten" type="be.vdab.servlets.docenten.ToevoegenServlet"--%>
+<%--@elvariable id="campussen" type="be.vdab.servlets.docenten.ToevoegenServlet"--%>
 
 <%@page contentType='text/html' pageEncoding='UTF-8' session='false' %>
 <%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
@@ -30,6 +31,13 @@
         <label>Rijksregisternummer:<span>${fouten.rijksregisternr}</span>
             <input name='rijksregisternr' value='${param.rijksregisternr}' required
                    type='number' min='10000000000' max='99999999999'></label>
+        <label>Campus: <span>${fouten.campussen}</span>
+            <select name='campussen' size='${campussen.size()}' required>
+                <c:forEach items='${campussen}' var='campus'> <option value='${campus.id}'
+                    ${campus.id == param.campussen ? 'selected' : ''}>
+                        ${campus.naam} (${campus.adres.gemeente})</option> </c:forEach>
+            </select>
+        </label>
         <input type='submit' value='Toevoegen' id='toevoegknop'>
     </form>
     <script>

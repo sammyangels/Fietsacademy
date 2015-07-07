@@ -12,7 +12,6 @@ public class TelefoonNr implements Serializable {
     private String opmerking;
 
     public TelefoonNr(String nummer, boolean fax, String opmerking) {
-
         this.nummer = nummer;
         this.fax = fax;
         this.opmerking = opmerking;
