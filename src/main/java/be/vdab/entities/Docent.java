@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 
@@ -28,16 +29,49 @@ public class Docent implements Serializable {
     @Column(name = "Bijnaam")
     private Set<String> bijnamen;
 
-    @ManyToOne(optional = false)
+    @Enumerated(EnumType.STRING)
+    private Geslacht geslacht;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "campusid")
     private Campus campus;
 
+    @ManyToMany
+    @JoinTable(
+            name = "docentenverantwoordelijkheden",
+            joinColumns = @JoinColumn(name="docentId"),
+            inverseJoinColumns = @JoinColumn(name="verantwoordelijkheidId"))
+    private Set<Verantwoordelijkheid> verantwoordelijkheden;
+
+    public void addVerantwoordelijkheid(Verantwoordelijkheid verantwoordelijkheid) {
+        verantwoordelijkheden.add(verantwoordelijkheid);
+        if (!verantwoordelijkheid.getDocenten().contains(this)) {
+            verantwoordelijkheid.addDocent(this);
+        }
+    }
+
+    public void removeVerantwoordelijkheid(Verantwoordelijkheid verantwoordelijkheid) {
+        verantwoordelijkheden.remove(verantwoordelijkheid);
+        if (verantwoordelijkheid.getDocenten().contains(this)) {
+            verantwoordelijkheid.removeDocent(this);
+        }
+    }
+
+    public Set<Verantwoordelijkheid> getVerantwoordelijkheden() {
+        return Collections.unmodifiableSet(verantwoordelijkheden);
+    }
     public Campus getCampus() {
         return campus;
     }
 
     public void setCampus(Campus campus) {
+        if (this.campus != null && this.campus.getDocenten().contains(this)) {
+            this.campus.removeDocent(this);         // als de andere kant nog niet bijgewerkt is werk je de andere kant bij
+        }
         this.campus = campus;
+        if (campus != null && !campus.getDocenten().contains(this)) {
+            campus.addDocent(this);                 // als de andere kant nog niet bijgewerkt is werk je de andere kant bij
+        }
     }
 
     protected Docent() {}
@@ -49,6 +83,7 @@ public class Docent implements Serializable {
         setRijksRegisterNr(rijksRegisterNr);
         setGeslacht(geslacht);
         bijnamen = new HashSet<>();
+        verantwoordelijkheden = new LinkedHashSet<>();
     }
 
     public void addBijnaam(String bijnaam) {
@@ -116,6 +151,19 @@ public class Docent implements Serializable {
         wedde = wedde.multiply(factor).setScale(2, RoundingMode.HALF_UP);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Docent)) {
+            return false;
+        }
+        return ((Docent) o).rijksRegisterNr == rijksRegisterNr;
+    }
+
+    @Override
+    public int hashCode() {
+        return Long.valueOf(rijksRegisterNr).hashCode();
+    }
+
     public void setGeslacht(Geslacht geslacht) {
         this.geslacht = geslacht;
     }
@@ -123,9 +171,6 @@ public class Docent implements Serializable {
     public Geslacht getGeslacht() {
         return geslacht;
     }
-
-    @Enumerated(EnumType.STRING)
-    private Geslacht geslacht;
 
     public long getId() {
         return id;
@@ -150,4 +195,6 @@ public class Docent implements Serializable {
     public String getNaam() {
         return voornaam + ' ' + familienaam;
     }
+
+
 }
